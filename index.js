@@ -31,7 +31,7 @@ var dispatcher = require('k');
 
 module.exports = function(el, obj){
   var k = dispatcher(el)
-    , ret = {};
+    , ret = { k: k };
 
   // bindings
   var bindings = ret.bindings = {};
@@ -55,6 +55,7 @@ module.exports = function(el, obj){
       bindings[keys] = {};
       k.unbind(keys);
     } else {
+      ret.bindings =
       bindings = {};
       k.unbind();
     }
