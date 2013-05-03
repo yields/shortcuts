@@ -61,6 +61,9 @@ module.exports = function(el, obj){
     }
   };
 
+  // all done
+  return ret;
+
   // wrap the given `method`.
   function wrap(method){
     return (function callback(){

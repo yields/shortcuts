@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+  <head>
+    <title>shortcuts</title>
+    <script src='build/build.js'></script>
+  </head>
+  <body>
+
+    <h1>⌘ + j to remove this element.</h1>
+
+    <script>
+      var shortcuts = require('shortcuts')
+        , el = window
+        , obj = {};
+
+    
+      var cuts = shortcuts(el, obj);
+      cuts.bind('command + j', 'remove');
+      obj.remove = function(e){
+        e.preventDefault();
+        var h1 = document.querySelector('h1');
+        h1.parentNode.removeChild(h1);
+        cuts.unbind();
+      };
+
+    </script>
+  </body>
+</html>
