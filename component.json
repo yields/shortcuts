@@ -1,0 +1,16 @@
+{
+  "name": "shortcuts",
+  "repo": "yields/shortcuts",
+  "description": "keyboard shortcuts, similiar to component/events",
+  "version": "0.0.1",
+  "keywords": ["keyboard", "shortcuts", "events"],
+  "dependencies": {
+    "yields/k": "*"  
+  },
+  "development": {},
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": [
+    "index.js"
+  ]
+}
