@@ -4,13 +4,10 @@
   "description": "keyboard shortcuts, similiar to component/events",
   "version": "0.0.1",
   "keywords": ["keyboard", "shortcuts", "events"],
-  "dependencies": {
-    "yields/k": "*"  
-  },
-  "development": {},
+  "scripts": ["index.js"],
   "license": "MIT",
   "main": "index.js",
-  "scripts": [
-    "index.js"
-  ]
+  "dependencies": {
+    "yields/k": "*"
+  }
 }
