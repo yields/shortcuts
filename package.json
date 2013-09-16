@@ -2,7 +2,7 @@
   "name": "shortcuts-component",
   "description": "keyboard shortcuts event manager, inspired by events-component",
   "author": "Amir Abu Shareb <yields@icloud.com>",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "main": "index.js",
   "dependencies": {
     "k-component": "*"
