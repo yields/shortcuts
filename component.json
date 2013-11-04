@@ -2,7 +2,7 @@
   "name": "shortcuts",
   "repo": "yields/shortcuts",
   "description": "keyboard shortcuts, similiar to component/events",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "keywords": ["keyboard", "shortcuts", "events"],
   "scripts": ["index.js"],
   "license": "MIT",
