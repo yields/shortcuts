@@ -1,7 +1,7 @@
 
 # shortcuts
 
-  keyboard shortcuts, similiar to [component/events](https://github.com/visionmedia/events).
+  keyboard shortcuts, similiar to [component/events](https://github.com/component/events).
 
 ## Installation
 
@@ -24,17 +24,27 @@ Editable.prototype.bold = function(e){};
 
 ## API
 
-#### cuts = shortcuts(el, obj)
+#### Shortcuts
 
   Bind shortcuts on the given `el` with `obj`.
 
-### cuts.bind(keys, method)
+### .k
 
-  Bind the `keys` with `method` on `obj`
+  [k](/yields/k) instance
 
-### cuts.unbind(keys, method)
-  
+### #bind
+
+  Bind `keys` with `method`
+
+### #unbind
+
   Unbind all events, or `keys` or `keys` with `method`.
+
+```js
+shortcuts.unbind('command + z', 'undo') // => unbind `undo`, `command + z`
+shortcuts.unbind('command + z'); // => unbind `command + z`
+shortcuts.unbind(); // => unbind all
+```
 
 ## License
 
