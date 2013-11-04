@@ -6,68 +6,86 @@
 var dispatcher = require('k');
 
 /**
- * Create `shortcuts`.
- * 
- * Example:
- * 
- *      function Editable(el){
- *        this.shortcuts = shortcuts(el, this);
- *        this.shortcuts.bind('command + z', 'undo');
- *        this.shortcuts.bind('command + b', 'bold');
- *        etc..
- *      }
- *      
- *      Editable.prototype.undo = function(e){
- *        // do undo
- *      };
- *      
- *      Editable.prototype.bold = function(e){
- *        // do bold
- *      };
- * 
- * @param {Element} el
- * @param {Object} obj
+ * Export `Shortcuts`
  */
 
-module.exports = function(el, obj){
-  var k = dispatcher(el)
-    , ret = { k: k };
+module.exports = Shortcuts;
 
-  // bindings
-  var bindings = ret.bindings = {};
+/**
+ * Initialize `Shortcuts`.
+ *
+ * @param {Element} el
+ * @param {Object} obj
+ * @api public
+ */
 
-  // bind `keys` to `method`.
-  ret.bind = function(keys, method){
-    if (2 != arguments.length) throw new Error('expected 2 arguments');
-    var methods = bindings[keys] = bindings[keys] || {};
-    var callback = wrap(method);
-    methods[method] = callback;
-    k(keys, callback);
-    return callback;
-  };
+function Shortcuts(el, obj){
+  if (!(this instanceof Shortcuts)) return new Shortcuts(el, obj);
+  this.k = dispatcher(el);
+  this.bindings = {};
+  this.obj = obj;
+  this.el = el;
+}
 
-  // unbind all, unbind `keys`, unbind `keys` with `method`.
-  ret.unbind = function(keys, method){
-    if (2 == arguments.length) {
-      var methods = bindings[keys];
-      k.unbind(keys, methods[method]);
-    } else if (1 == arguments.length) {
-      bindings[keys] = {};
-      k.unbind(keys);
-    } else {
-      ret.bindings =
-      bindings = {};
-      k.unbind();
-    }
-  };
+/**
+ * Bind `keys`, `method`.
+ *
+ * @param {String} keys
+ * @param {String} method
+ * @return {Shortcuts}
+ * @api public
+ */
 
-  // all done
-  return ret;
+Shortcuts.prototype.bind = function(keys, method){
+  if (2 != arguments.length) throw new Error('expected 2 arguments');
+  var bindings = this.bindings;
+  var m = bindings[keys] = bindings[keys] || {};
+  var callback = this.callback(method);
+  m[method] = callback;
+  this.k(keys, callback);
+  return this;
+};
 
-  // wrap the given `method`.
-  function wrap(method){
-    return (function callback(){
-      obj[method].apply(obj, arguments);
-    });
+/**
+ * Unbind `keys`, `method`.
+ *
+ * @param {String} keys
+ * @param {String} method
+ * @return {Shortcuts}
+ * @api public
+ */
+
+Shortcuts.prototype.unbind = function(keys, method){
+  var methods = this.bindings[keys];
+
+  if (2 == arguments.length) {
+    this.k.unbind(keys, methods[method]);
+    return this;
+  }
+
+  if (1 == arguments.length) {
+    this.bindings[keys] = {};
+    this.k.unbind(keys);
+    return this;
+  }
+
+  this.bindings = {};
+  this.k.unbind();
+  return this;
+};
+
+/**
+ * Wrap the given `method`.
+ *
+ * @param {String} method
+ * @return {Function}
+ * @api private
+ */
+
+Shortcuts.prototype.callback = function(method){
+  var obj = this.obj;
+
+  return function callback(){
+    obj[method].apply(obj, arguments);
   }
 };
